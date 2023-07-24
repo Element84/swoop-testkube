@@ -6,5 +6,5 @@
       "'Accept: application/json'"
     ],
     "expected_status": "200",
-    "expected_body": "{\"title\":\"Example processing server\",\"description\":\"Example server implementing the OGC API - Processes 1.0 Standard\",\"links\":[{\"href\":\"http://localhost:8000/conformance\",\"rel\":\"http://www.opengis.net/def/rel/ogc/1.0/conformance\",\"type\":\"application/json\"}]}"
+    "expected_body": "{\"title\":\"Example processing server\",\"description\":\"Example server implementing the OGC API - Processes 1.0 Standard\",\"links\":[{\"href\":\"http://swoop-api.swoop:8000/conformance\",\"rel\":\"http://www.opengis.net/def/rel/ogc/1.0/conformance\",\"type\":\"application/json\"}]}"
 }
