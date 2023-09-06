@@ -4,6 +4,7 @@ import {check} from 'k6';
 
 export default function() {
   const swoopApiProcesses = http.get('http://' + __ENV.API_HOST + '/processes/');
+  console.log('Output of HTTP GET http://' + __ENV.API_HOST + '/processes/\n', swoopApiProcesses);
   check(swoopApiProcesses, {
     'status of SWOOP API GET /processes was 200': (r) => r.status == 200
   });
