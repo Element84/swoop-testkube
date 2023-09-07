@@ -1,6 +1,10 @@
 import http from 'k6/http';
 import {check,sleep} from 'k6';
 
+const hash = require('object-hash');
+
+const hashOptions = {unorderedArrays: true}
+
 export const options = {
   stages: [
     {
@@ -353,6 +357,6 @@ export default function() {
   delete jobResults.features[0].properties.updated
   console.log(jobResults)
   check(swoopApiJobResults, {
-    'job results match output fixture': (r) => JSON.stringify(outputFixture) == JSON.stringify(jobResults)
+    'job results match output fixture': (r) => hash(objA, outputFixture) == hash(objB, jobResults)
   });
 }
