@@ -1,6 +1,14 @@
 import http from 'k6/http';
 import {check} from 'k6';
 
+export const options = {
+  stages: [
+    {
+      duration: `${__ENV.TESTTIMEOUT}`,
+      target: parseInt(__ENV.TESTUSERTARGET)
+    },
+  ],
+};
 
 export default function() {
   const swoopApiProcesses = http.get('http://' + __ENV.API_HOST + '/processes/');
