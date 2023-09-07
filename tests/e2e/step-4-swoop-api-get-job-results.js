@@ -4,7 +4,7 @@ import {check,sleep} from 'k6';
 export const options = {
   stages: [
     {
-      duration: `${__ENV.TESTTIMEOUT}`,
+      maxDuration: `${__ENV.TESTTIMEOUT}`,
       target: parseInt(__ENV.TESTUSERTARGET)
     },
   ],
