@@ -1,5 +1,5 @@
 import http from 'k6/http';
-import {check} from 'k6';
+import {check,sleep} from 'k6';
 
 export const options = {
   stages: [
@@ -193,13 +193,17 @@ export default function() {
 
   const swoopApiProcessExecution = http.post('http://' + __ENV.API_HOST + '/processes/mirror/execution', payload, params);
 
-  check(swoopApiProcessExecution, {
-    'status of SWOOP API POST /processes/mirror/execution was 201': (r) => r.status == 201
-  });
-  check(swoopApiProcessExecution, {
-    'response of SWOOP API POST /processes/mirror/execution contains a jobID': (r) => r.json().jobID
-  });
-  check(swoopApiProcessExecution, {
-    'response of SWOOP API POST /processes/mirror/execution response has status "accepted"': (r) => r.json().status == "accepted"
+  const jobID = swoopApiProcessExecution.json().jobID
+
+  let swoopApiJobState = http.get('http://' + __ENV.API_HOST + '/jobs/' + jobID);
+
+  if (swoopApiJobState.json().status != 'successful' || swoopApiJobState.json().status != 'failed') {
+    // If Job state is still in progress sleep for a couple of seconds and try again
+    sleep(2);
+    swoopApiJobState = http.get('http://' + __ENV.API_HOST + '/jobs/' + jobID);
+  }
+
+  check(swoopApiJobState, {
+    'status of process execution is successful': (r) => r.json().status == "successful"
   });
 }
