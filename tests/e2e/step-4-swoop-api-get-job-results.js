@@ -356,7 +356,7 @@ export default function() {
         if(o2.hasOwnProperty(key))
           allKeys[key] = key;
       for(key in allKeys){
-        if(!equal(o1[key], o2[key])) return false;
+        if(!equalOutput(o1[key], o2[key])) return false;
       }
       return true;
     }
