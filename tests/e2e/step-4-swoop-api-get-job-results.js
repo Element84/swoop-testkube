@@ -335,7 +335,7 @@ export default function() {
 
   delete outputFixture.features[0].properties.created
   delete outputFixture.features[0].properties.updated
-
+  console.log(outputFixture)
   const params = {
     headers: {
       'Content-Type': 'application/json',
@@ -351,7 +351,8 @@ export default function() {
   let jobResults = swoopApiJobResults.json()
   delete jobResults.features[0].properties.created
   delete jobResults.features[0].properties.updated
+  console.log(jobResults)
   check(swoopApiJobResults, {
-    'job results match output fixture': (r) => outputFixture == jobResults
+    'job results match output fixture': (r) => JSON.stringify(outputFixture) == JSON.stringify(jobResults)
   });
 }
