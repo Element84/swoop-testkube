@@ -12,7 +12,7 @@ export const options = {
 
 export default function() {
 
-  let outputFixture = JSON.stringify({
+  let outputFixture = {
     "type": "FeatureCollection",
     "features": [
       {
@@ -157,7 +157,7 @@ export default function() {
       },
       "workflow": "mirror"
     }
-  });
+  };
 
   const payload = JSON.stringify({
     "inputs": {
@@ -333,8 +333,8 @@ export default function() {
     "response": "document"
   });
 
-  delete outputFixture["features"][0]["properties"]["created"]
-  delete outputFixture["features"][0]["properties"]["updated"]
+  delete outputFixture.features[0].properties.created
+  delete outputFixture.features[0].properties.updated
 
   const params = {
     headers: {
@@ -349,8 +349,8 @@ export default function() {
   const swoopApiJobResults = http.get('http://' + __ENV.API_HOST + '/jobs/' + jobID + '/results');
 
   let jobResults = swoopApiJobResults.json()
-  delete jobResults["features"][0]["properties"]["created"]
-  delete jobResults["features"][0]["properties"]["updated"]
+  delete jobResults.features[0].properties.created
+  delete jobResults.features[0].properties.updated
   check(swoopApiJobResults, {
     'job results match output fixture': (r) => outputFixture == jobResults
   });
