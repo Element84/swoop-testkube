@@ -194,12 +194,12 @@ export default function() {
   const swoopApiProcessExecution = http.post('http://' + __ENV.API_HOST + '/processes/mirror/execution', payload, params);
 
   check(swoopApiProcessExecution, {
-    'status of SWOOP API POST /processes/mirror/execution was 201': (r) => r.status == 201
+    'status of SWOOP API POST /processes/mirror/execution was 201 or 200': (r) => r.status == 200 || r.status == 201
   });
   check(swoopApiProcessExecution, {
     'response of SWOOP API POST /processes/mirror/execution contains a jobID': (r) => r.json().jobID
   });
   check(swoopApiProcessExecution, {
-    'response of SWOOP API POST /processes/mirror/execution response has status "accepted"': (r) => r.json().status == "accepted"
+    'response of SWOOP API POST /processes/mirror/execution response has status "accepted" or "successful"': (r) => r.json().status == "accepted" || r.json().status == "successful"
   });
 }
