@@ -155,7 +155,7 @@ export default function() {
               "naip": "*"
             },
             "public_assets": [],
-            "s3_urls": False
+            "s3_urls": false
           },
           "tasks": {
             "copy-assets": {
@@ -167,8 +167,8 @@ export default function() {
               ]
             },
             "publish": {
-              "public": False,
-              "stac_validate": True
+              "public": false,
+              "stac_validate": true
             }
           }
         }]
