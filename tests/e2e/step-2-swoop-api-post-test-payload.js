@@ -186,7 +186,7 @@ export default function() {
   const swoopApiProcessExecution = http.post('http://' + __ENV.API_HOST + '/processes/mirror/execution', payload, params);
 
   check(swoopApiProcessExecution, {
-    'status of SWOOP API POST /processes/mirror/execution was 200': (r) => r.status == 200
+    'status of SWOOP API POST /processes/mirror/execution was 201': (r) => r.status == 201
   });
   check(swoopApiProcessExecution, {
     'response of SWOOP API POST /processes/mirror/execution contains a jobID': (r) => r.json().jobID
