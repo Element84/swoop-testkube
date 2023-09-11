@@ -10,9 +10,12 @@ export const options = {
   ],
 };
 
-const awsConfig = new AWSConfig().fromEnvironment();
-
-
+const awsConfig = new AWSConfig({
+  region: __ENV.AWS_REGION,
+  accessKeyId: __ENV.AWS_ACCESS_KEY_ID,
+  secretAccessKey: __ENV.AWS_SECRET_ACCESS_KEY,
+  sessionToken: __ENV.AWS_SESSION_TOKEN,
+});
 
 const s3 = new S3Client(awsConfig);
 
