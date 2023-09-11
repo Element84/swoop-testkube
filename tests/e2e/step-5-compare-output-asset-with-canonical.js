@@ -26,7 +26,7 @@ export default async function() {
   });
   
   check(assetObjects, {
-    'output asset size matches canonical object': (r) => __ENV.STAC_ASSET_CANONICAL_SIZE == objects.filter((r) => r.key === __ENV.STAC_ASSET_OBJECT_NAME)[0].size
+    'output asset size matches canonical object': (r) => __ENV.STAC_ASSET_CANONICAL_SIZE == parseInt(objects.filter((r) => r.key === __ENV.STAC_ASSET_OBJECT_NAME)[0].size)
   });
 
   check(assetObjects, {
