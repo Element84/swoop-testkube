@@ -11,9 +11,7 @@ export const options = {
 };
 
 const awsConfig = new AWSConfig({
-  region: __ENV.AWS_REGION,
-  accessKeyId: __ENV.AWS_ACCESS_KEY_ID,
-  secretAccessKey: __ENV.AWS_SECRET_ACCESS_KEY,
+  region: __ENV.AWS_REGION
 });
 
 const s3 = new S3Client(awsConfig);
