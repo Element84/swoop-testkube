@@ -17,8 +17,11 @@ export default function() {
     "type": "FeatureCollection",
     "features": [
       {
-        "id": `${__ENV.TESTID}`,
+        "type": "Feature",
         "properties": {
+          "gsd": 0.6,
+          "naip:year": "2020",
+          "proj:epsg": 26914,
           "proj:shape": [
             12320,
             11160
@@ -37,42 +40,52 @@ export default function() {
           "processing:software": {
             "publish": "0.1.0"
           },
+          "datetime": "2020-12-17T00:00:00Z",
           "proj:bbox": [
             630384,
             2945370,
             637080,
             2952762
           ],
-          "proj:epsg": 26914,
-          "naip:state": "tx",
-          "gsd": 0.6,
-          "datetime": "2020-12-17T00:00:00Z",
-          "naip:year": "2020"
+          "naip:state": "tx"
         },
-        "stac_extensions": [
-          "https://stac-extensions.github.io/processing/v1.1.0/schema.json",
-          "https://stac-extensions.github.io/eo/v1.0.0/schema.json",
-          "https://stac-extensions.github.io/projection/v1.0.0/schema.json"
-        ],
-        "collection": "naip",
-        "assets": {
-          "thumbnail": {
-            "href": `https://${__ENV.STAC_ASSET_BUCKET_NAME}.s3.${__ENV.AWS_REGION}.amazonaws.com/data/naip/${__ENV.TESTID}/thumbnail.jpg`,
-            "type": "image/jpeg",
-            "title": "Thumbnail",
-            "roles": [
-              "thumbnail"
-            ]
+        "links": [
+          {
+            "rel": "self",
+            "href": `s3://${__ENV.STAC_ASSET_BUCKET_NAME}/data/naip/${__ENV.TESTID}/${__ENV.TESTID}.json`,
+            "type": "application/json"
+          },
+          {
+            "rel": "canonical",
+            "href": `s3://${__ENV.STAC_ASSET_BUCKET_NAME}/data/naip/${__ENV.TESTID}/${__ENV.TESTID}.json`,
+            "type": "application/json"
+          },
+          {
+            "href": "https://planetarycomputer.microsoft.com/api/stac/v1/collections/naip",
+            "type": "application/json",
+            "rel": "collection"
+          },
+          {
+            "type": "application/json",
+            "rel": "parent",
+            "href": "https://planetarycomputer.microsoft.com/api/stac/v1/collections/naip"
+          },
+          {
+            "rel": "preview",
+            "href": "https://planetarycomputer.microsoft.com/api/data/v1/item/map?collection=naip&item=tx_m_2609719_se_14_060_20201217",
+            "type": "text/html",
+            "title": "Map of item"
           }
-        },
+        ],
         "bbox": [
           -97.690252,
           26.622563,
           -97.622203,
           26.689923
         ],
-        "type": "Feature",
+        "collection": "naip",
         "stac_version": "1.0.0",
+        "id": `${__ENV.TESTID}`,
         "geometry": {
           "type": "Polygon",
           "coordinates": [
@@ -100,33 +113,20 @@ export default function() {
             ]
           ]
         },
-        "links": [
-          {
-            "type": "application/json",
-            "rel": "self",
-            "href": `s3://${__ENV.STAC_ASSET_BUCKET_NAME}/data/naip/${__ENV.TESTID}/${__ENV.TESTID}.json`
-          },
-          {
-            "type": "application/json",
-            "rel": "canonical",
-            "href": `s3://${__ENV.STAC_ASSET_BUCKET_NAME}/data/naip/${__ENV.TESTID}/${__ENV.TESTID}.json`
-          },
-          {
-            "href": "https://planetarycomputer.microsoft.com/api/stac/v1/collections/naip",
-            "type": "application/json",
-            "rel": "collection"
-          },
-          {
-            "rel": "parent",
-            "href": "https://planetarycomputer.microsoft.com/api/stac/v1/collections/naip",
-            "type": "application/json"
-          },
-          {
-            "href": "https://planetarycomputer.microsoft.com/api/data/v1/item/map?collection=naip&item=tx_m_2609719_se_14_060_20201217",
-            "type": "text/html",
-            "title": "Map of item",
-            "rel": "preview"
+        "assets": {
+          "thumbnail": {
+            "href": `https://${__ENV.STAC_ASSET_BUCKET_NAME}.s3.${__ENV.AWS_REGION}.amazonaws.com/data/naip/${__ENV.TESTID}/thumbnail.jpg`,
+            "type": "image/jpeg",
+            "title": "Thumbnail",
+            "roles": [
+              "thumbnail"
+            ]
           }
+        },
+        "stac_extensions": [
+          "https://stac-extensions.github.io/eo/v1.0.0/schema.json",
+          "https://stac-extensions.github.io/processing/v1.1.0/schema.json",
+          "https://stac-extensions.github.io/projection/v1.0.0/schema.json"
         ]
       }
     ],
@@ -142,8 +142,8 @@ export default function() {
           ]
         },
         "publish": {
-          "stac_validate": true,
-          "public": false
+          "public": false,
+          "stac_validate": true
         }
       },
       "upload_options": {
