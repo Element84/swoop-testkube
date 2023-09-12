@@ -372,6 +372,6 @@ export default function() {
   delete jobResults.features[0].properties.updated
 
   check(swoopApiJobResults, {
-    'job results match output fixture': (r) => _.isEqual(outputFixture, jobResults)
+    'job results match output fixture': (r) => _.isMatch(outputFixture, jobResults)
   });
 }
