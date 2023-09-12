@@ -22,6 +22,8 @@ const s3 = new S3Client(awsConfig);
 export default async function() {
   const assetObjects = await s3.listObjects(__ENV.STAC_ASSET_BUCKET_NAME, `data/naip/${__ENV.TESTID}/`);
 
+  console.log(assetObjects);
+
   check(assetObjects, {
     'output asset object exists on s3': (r) => objects.filter((r) => r.key === __ENV.STAC_ASSET_OBJECT_NAME).length > 0
   });
