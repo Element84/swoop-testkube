@@ -341,26 +341,6 @@ export default function() {
     },
   };
 
-  let equalOutput = (function(){
-    function isObject(o){
-      return o !== null && typeof o === 'object';
-    }
-    return function(o1, o2){
-      if(!isObject(o1) || !isObject(o2)) return o1 === o2;
-      var key, allKeys = {};
-      for(key in o1)
-        if(o1.hasOwnProperty(key))
-          allKeys[key] = key;
-      for(key in o2)
-        if(o2.hasOwnProperty(key))
-          allKeys[key] = key;
-      for(key in allKeys){
-        if(!equalOutput(o1[key], o2[key])) return false;
-      }
-      return true;
-    }
-  })();
-
   const swoopApiProcessExecution = http.post('http://' + __ENV.API_HOST + '/processes/mirror/execution', payload, params);
 
   const jobID = swoopApiProcessExecution.json().jobID
