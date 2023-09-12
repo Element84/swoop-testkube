@@ -346,9 +346,6 @@ export default function() {
 
   let jobResults = swoopApiJobResults.json();
 
-  console.log("outputFixture= ",outputFixture.process);
-  console.log("jobResults= ",jobResults.process);
-  console.log("isEqual= ",_.isEqual(outputFixture, jobResults));
   check(swoopApiJobResults, {
     'job results match output fixture': (r) => _.isEqual(outputFixture.process, jobResults.process)
   });
