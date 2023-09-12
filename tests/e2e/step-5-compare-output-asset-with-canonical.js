@@ -23,8 +23,8 @@ export default async function() {
   const assetObjects = await s3.listObjects(__ENV.STAC_ASSET_BUCKET_NAME, `data/naip/${__ENV.TESTID}/`);
 
   console.log(assetObjects);
-  console.log(assetObjects.filter((o) => o.key === `data/naip/${__ENV.TESTID}/${__ENV.STAC_ASSET_OBJECT_NAME}`)[0].etag);
-  console.log(__ENV.STAC_ASSET_CANONICAL_CHECKSUM.replace(/[^a-z0-9]/gi, ''));
+  console.log(assetObjects.filter((o) => o.key === `data/naip/${__ENV.TESTID}/${__ENV.STAC_ASSET_OBJECT_NAME}`)[0].etag.replace(/[^a-z0-9]/gi, ''));
+  console.log(__ENV.STAC_ASSET_CANONICAL_CHECKSUM);
   check(assetObjects, {
     'output asset object exists on s3': (r) => r.filter((o) => o.key === `data/naip/${__ENV.TESTID}/${__ENV.STAC_ASSET_OBJECT_NAME}`).length > 0
   });
@@ -34,6 +34,6 @@ export default async function() {
   });
 
   check(assetObjects, {
-    'output asset checksum matches canonical object': (r) => __ENV.STAC_ASSET_CANONICAL_CHECKSUM.replace(/[^a-z0-9]/gi, '') == r.filter((o) => o.key === `data/naip/${__ENV.TESTID}/${__ENV.STAC_ASSET_OBJECT_NAME}`)[0].etag
+    'output asset checksum matches canonical object': (r) => __ENV.STAC_ASSET_CANONICAL_CHECKSUM == r.filter((o) => o.key === `data/naip/${__ENV.TESTID}/${__ENV.STAC_ASSET_OBJECT_NAME}`)[0].etag.replace(/[^a-z0-9]/gi, '')
   });
 }
