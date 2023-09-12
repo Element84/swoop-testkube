@@ -333,6 +333,8 @@ export default function() {
     "response": "document"
   });
 
+
+
   delete outputFixture.features[0].properties.created
   delete outputFixture.features[0].properties.updated
   console.log(outputFixture)
@@ -371,8 +373,23 @@ export default function() {
   let jobResults = swoopApiJobResults.json()
   delete jobResults.features[0].properties.created
   delete jobResults.features[0].properties.updated
-  console.log(jobResults)
+  console.log(jobResults);
+  const outputFixtureChecksum = checksum(JSON.stringify(outputFixture))
+  const jobResultsChecksum = checksum(JSON.stringify(jobResults));
+  console.log('outputFixtureChecksum =', outputFixtureChecksum);
+  console.log('jobResultsChecksum =', jobResultsChecksum);
   check(swoopApiJobResults, {
-    'job results match output fixture': (r) => equalOutput(outputFixture, jobResults)
+    'job results match output fixture': (r) => outputFixtureChecksum == jobResultsChecksum
   });
+}
+
+function checksum(s)
+{
+  var chk = 0x12345678;
+  var len = s.length;
+  for (var i = 0; i < len; i++) {
+      chk += (s.charCodeAt(i) * (i + 1));
+  }
+
+  return (chk & 0xffffffff).toString(16);
 }
