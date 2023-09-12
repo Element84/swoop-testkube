@@ -1,5 +1,6 @@
 import http from 'k6/http';
 import {check,sleep} from 'k6';
+import { _ } from 'https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js';
 
 export const options = {
   stages: [
@@ -371,6 +372,6 @@ export default function() {
   delete jobResults.features[0].properties.updated
 
   check(swoopApiJobResults, {
-    'job results match output fixture': (r) => equalOutput(outputFixture, jobResults)
+    'job results match output fixture': (r) => _.isEqual(outputFixture, jobResults)
   });
 }
