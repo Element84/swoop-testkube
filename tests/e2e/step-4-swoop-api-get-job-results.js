@@ -16,21 +16,8 @@ export default function() {
     "type": "FeatureCollection",
     "features": [
       {
-        "type": "Feature",
-        "stac_version": "1.0.0",
         "id": `${__ENV.TESTID}`,
         "properties": {
-          "gsd": 0.6,
-          "datetime": "2020-12-17T00:00:00Z",
-          "naip:year": "2020",
-          "proj:bbox": [
-            630384,
-            2945370,
-            637080,
-            2952762
-          ],
-          "proj:epsg": 26914,
-          "naip:state": "tx",
           "proj:shape": [
             12320,
             11160
@@ -49,9 +36,42 @@ export default function() {
           "processing:software": {
             "publish": "0.1.0"
           },
-          "created": "2023-09-07T21:03:02.969145+00:00",
-          "updated": "2023-09-07T21:03:02.969145+00:00"
+          "proj:bbox": [
+            630384,
+            2945370,
+            637080,
+            2952762
+          ],
+          "proj:epsg": 26914,
+          "naip:state": "tx",
+          "gsd": 0.6,
+          "datetime": "2020-12-17T00:00:00Z",
+          "naip:year": "2020"
         },
+        "stac_extensions": [
+          "https://stac-extensions.github.io/processing/v1.1.0/schema.json",
+          "https://stac-extensions.github.io/eo/v1.0.0/schema.json",
+          "https://stac-extensions.github.io/projection/v1.0.0/schema.json"
+        ],
+        "collection": "naip",
+        "assets": {
+          "thumbnail": {
+            "href": `https://${__ENV.STAC_ASSET_BUCKET_NAME}.s3.${__ENV.AWS_REGION}.amazonaws.com/data/naip/${__ENV.TESTID}/thumbnail.jpg`,
+            "type": "image/jpeg",
+            "title": "Thumbnail",
+            "roles": [
+              "thumbnail"
+            ]
+          }
+        },
+        "bbox": [
+          -97.690252,
+          26.622563,
+          -97.622203,
+          26.689923
+        ],
+        "type": "Feature",
+        "stac_version": "1.0.0",
         "geometry": {
           "type": "Polygon",
           "coordinates": [
@@ -81,19 +101,19 @@ export default function() {
         },
         "links": [
           {
+            "type": "application/json",
             "rel": "self",
-            "href": `s3://${__ENV.STAC_ASSET_BUCKET_NAME}/data/naip/${__ENV.TESTID}/${__ENV.TESTID}.json`,
-            "type": "application/json"
+            "href": `s3://${__ENV.STAC_ASSET_BUCKET_NAME}/data/naip/${__ENV.TESTID}/${__ENV.TESTID}.json`
           },
           {
+            "type": "application/json",
             "rel": "canonical",
-            "href": `s3://${__ENV.STAC_ASSET_BUCKET_NAME}/data/naip/${__ENV.TESTID}/${__ENV.TESTID}.json`,
-            "type": "application/json"
+            "href": `s3://${__ENV.STAC_ASSET_BUCKET_NAME}/data/naip/${__ENV.TESTID}/${__ENV.TESTID}.json`
           },
           {
-            "rel": "collection",
             "href": "https://planetarycomputer.microsoft.com/api/stac/v1/collections/naip",
-            "type": "application/json"
+            "type": "application/json",
+            "rel": "collection"
           },
           {
             "rel": "parent",
@@ -101,34 +121,12 @@ export default function() {
             "type": "application/json"
           },
           {
-            "rel": "preview",
-            "href": "https://planetarycomputer.microsoft.com/api/data/v1/item/map?collection=naip\\u0026item=tx_m_2609719_se_14_060_20201217",
+            "href": "https://planetarycomputer.microsoft.com/api/data/v1/item/map?collection=naip&item=tx_m_2609719_se_14_060_20201217",
             "type": "text/html",
-            "title": "Map of item"
+            "title": "Map of item",
+            "rel": "preview"
           }
-        ],
-        "assets": {
-          "thumbnail": {
-            "href": `https://${__ENV.STAC_ASSET_BUCKET_NAME}.s3.${__ENV.AWS_REGION}.amazonaws.com/data/naip/${__ENV.TESTID}/thumbnail.jpg`,
-            "type": "image/jpeg",
-            "title": "Thumbnail",
-            "roles": [
-              "thumbnail"
-            ]
-          }
-        },
-        "bbox": [
-          -97.690252,
-          26.622563,
-          -97.622203,
-          26.689923
-        ],
-        "stac_extensions": [
-          "https://stac-extensions.github.io/processing/v1.1.0/schema.json",
-          "https://stac-extensions.github.io/projection/v1.0.0/schema.json",
-          "https://stac-extensions.github.io/eo/v1.0.0/schema.json"
-        ],
-        "collection": "naip"
+        ]
       }
     ],
     "process": {
@@ -143,8 +141,8 @@ export default function() {
           ]
         },
         "publish": {
-          "public": false,
-          "stac_validate": true
+          "stac_validate": true,
+          "public": false
         }
       },
       "upload_options": {
