@@ -377,7 +377,7 @@ export default function() {
   console.log('outputFixtureChecksum =', outputFixtureChecksum);
   console.log('jobResultsChecksum =', jobResultsChecksum);
   check(swoopApiJobResults, {
-    'job results match output fixture': (r) => outputFixtureChecksum == jobResultsChecksum
+    'job results match output fixture': (r) => equalOutput(outputFixture, jobResults)
   });
 }
 
