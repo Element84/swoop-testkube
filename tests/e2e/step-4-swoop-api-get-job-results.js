@@ -158,7 +158,7 @@ export default function() {
     }
   };
 
-  const payload = {
+  const payload = JSON.stringify({
     "inputs": {
       "payload": {
         "id": `${__ENV.TESTID}`,
@@ -330,11 +330,10 @@ export default function() {
       }
     },
     "response": "document"
-  };
+  });
 
   delete outputFixture.features[0].properties.created
   delete outputFixture.features[0].properties.updated
-  outputFixture = payload.inputs.payload
 
   const params = {
     headers: {
@@ -342,7 +341,7 @@ export default function() {
     },
   };
 
-  const swoopApiProcessExecution = http.post('http://' + __ENV.API_HOST + '/processes/mirror/execution', JSON.stringify(payload), params);
+  const swoopApiProcessExecution = http.post('http://' + __ENV.API_HOST + '/processes/mirror/execution', payload, params);
 
   const jobID = swoopApiProcessExecution.json().jobID
 
@@ -352,10 +351,10 @@ export default function() {
   delete jobResults.features[0].properties.created
   delete jobResults.features[0].properties.updated
 
-  console.log("outputFixture= ",outputFixture);
-  console.log("jobResults= ",jobResults);
-  console.log("isMatch= ",_.isEqual(jobResults, outputFixture));
+  console.log("outputFixture= ",outputFixture.features[0]);
+  console.log("jobResults= ",jobResults.features[0]);
+  console.log("isEqual= ",_.isEqual(outputFixture.features[0], jobResults.features[0]));
   check(swoopApiJobResults, {
-    'job results match output fixture': (r) => _.isMatch(jobResults, outputFixture)
+    'job results match output fixture': (r) => _.isEqual(outputFixture.features[0], jobResults.features[0])
   });
 }
