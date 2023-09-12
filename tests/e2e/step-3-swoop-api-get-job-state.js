@@ -196,11 +196,13 @@ export default function() {
   const jobID = swoopApiProcessExecution.json().jobID
 
   let swoopApiJobState = http.get('http://' + __ENV.API_HOST + '/jobs/' + jobID);
+  console.log("swoopApiJobState= ", swoopApiJobState);
 
   while (swoopApiJobState.json().status != 'successful' || swoopApiJobState.json().status != 'failed') {
     // If Job state is still in progress sleep for a couple of seconds and try again
     sleep(2);
     swoopApiJobState = http.get('http://' + __ENV.API_HOST + '/jobs/' + jobID);
+    console.log("swoopApiJobState= ", swoopApiJobState);
   }
 
   check(swoopApiJobState, {
