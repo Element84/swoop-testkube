@@ -17,7 +17,9 @@ export const options = {
 //   sessionToken: __ENV.AWS_SESSION_TOKEN,
 // });
 
-const awsConfig = new AWSConfig();
+const awsConfig = new AWSConfig({
+    region: __ENV.AWS_REGION
+  });
 
 const s3 = new S3Client(awsConfig);
 
