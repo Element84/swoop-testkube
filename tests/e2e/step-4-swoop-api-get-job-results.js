@@ -332,8 +332,9 @@ export default function() {
     "response": "document"
   });
 
-  delete outputFixture.features[0].properties.created
-  delete outputFixture.features[0].properties.updated
+  outputFixture = outputFixture.features[0]
+  delete outputFixture.properties.created
+  delete outputFixture.properties.updated
 
   const params = {
     headers: {
@@ -348,13 +349,14 @@ export default function() {
   const swoopApiJobResults = http.get('http://' + __ENV.API_HOST + '/jobs/' + jobID + '/results');
 
   let jobResults = swoopApiJobResults.json()
-  delete jobResults.features[0].properties.created
-  delete jobResults.features[0].properties.updated
+  jobResults = jobResults.features[0]
+  delete jobResults.properties.created
+  delete jobResults.properties.updated
 
-  console.log("outputFixture= ",outputFixture.features[0]);
-  console.log("jobResults= ",jobResults.features[0]);
-  console.log("isEqual= ",_.isEqual(outputFixture.features[0], jobResults.features[0]));
+  console.log("outputFixture= ",outputFixture);
+  console.log("jobResults= ",jobResults);
+  console.log("isEqual= ",_.isEqual(outputFixture, jobResults));
   check(swoopApiJobResults, {
-    'job results match output fixture': (r) => _.isEqual(outputFixture.features[0], jobResults.features[0])
+    'job results match output fixture': (r) => _.isEqual(outputFixture, jobResults)
   });
 }
