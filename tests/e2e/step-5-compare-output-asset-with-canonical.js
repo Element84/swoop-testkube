@@ -31,6 +31,6 @@ export default async function() {
   });
 
   check(assetObjects, {
-    'output asset checksum matches canonical object': (r) => __ENV.STAC_ASSET_CANONICAL_CHECKSUM == r.filter((o) => o.key === `data/naip/${__ENV.TESTID}/${__ENV.STAC_ASSET_OBJECT_NAME}`)[0].etag.replace(/[^a-z0-9]/gi, ''))
+    'output asset checksum matches canonical object': (r) => __ENV.STAC_ASSET_CANONICAL_CHECKSUM == r.filter((o) => o.key === `data/naip/${__ENV.TESTID}/${__ENV.STAC_ASSET_OBJECT_NAME}`)[0].etag.replace(/[^a-z0-9]/gi, '')
   });
 }
