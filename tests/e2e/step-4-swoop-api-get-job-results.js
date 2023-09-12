@@ -102,7 +102,7 @@ export default function() {
           },
           {
             "rel": "preview",
-            "href": "https://planetarycomputer.microsoft.com/api/data/v1/item/map?collection=naip&item=tx_m_2609719_se_14_060_20201217",
+            "href": "https://planetarycomputer.microsoft.com/api/data/v1/item/map?collection=naip\\u0026item=tx_m_2609719_se_14_060_20201217",
             "type": "text/html",
             "title": "Map of item"
           }
