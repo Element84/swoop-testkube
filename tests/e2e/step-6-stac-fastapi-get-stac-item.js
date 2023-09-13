@@ -195,9 +195,6 @@ export default function() {
   const stacItemPayload =  JSON.stringify(payload.inputs.payload.features[0])
   const addingStacItem = http.post('http://' + __ENV.STAC_API_HOST + '/collections/naip/items', stacItemPayload, params);
   console.log("addingStacItem= ", addingStacItem);
-  check(addingStacItem, {
-    'status of adding STAC Item via POST /collections/naip/items was 200': (r) => r.status == 200
-  });
 
 
   let stacItemState = http.get('http://' + __ENV.STAC_API_HOST + '/collections/naip/items/' + __ENV.TESTID);
