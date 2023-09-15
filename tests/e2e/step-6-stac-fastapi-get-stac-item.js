@@ -191,12 +191,6 @@ export default function() {
     },
   };
 
-  // Only needed to create a mockup stac item, should be deleted once conductor callback capability is in-place
-  const stacItemPayload =  JSON.stringify(payload.inputs.payload.features[0])
-  const addingStacItem = http.post('http://' + __ENV.STAC_API_HOST + '/collections/naip/items', stacItemPayload, params);
-  console.log("addingStacItem= ", addingStacItem);
-
-
   let stacItemState = http.get('http://' + __ENV.STAC_API_HOST + '/collections/naip/items/' + __ENV.TESTID);
   console.log("stacItemState= ", stacItemState);
   while (stacItemState.status != 200) {
